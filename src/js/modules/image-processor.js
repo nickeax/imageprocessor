@@ -20,25 +20,36 @@ export class ImageProcessor {
   sections
   divisions
 
+  canvas
+
 
   constructor(config) {
+    this.canvas = document.querySelector('#testCanvas')
+    this.ctx = this.canvas.getContext('2d')
     this.imagePath = config.imagePath
     this.divisions = config.divisions
-
     this.sourceImage = new Image()
     this.sourceImage.addEventListener('load', e => {
       this.initialiseMetrics()
+      this.buildSections()
     }) // the image has loaded, use it's dimensions to initialise section info
     this.sourceImage.src = this.imagePath
-
-    for (let i = 0; i < this.sourceImage.width; i += this.columnSize) {
-      console.log(i);
-    }
   }
 
   initialiseMetrics() {
-    this.columnSize = this.sourceImage.naturalWidth / this.divisions;
-    this.rowSize = this.sourceImage.naturalHeight / this.divisions;
+    this.sourceWidth = this.sourceImage.width
+    this.sourceHeight = this.sourceImage.height
+    this.columnSize = Math.floor(this.sourceImage.naturalWidth / this.divisions);
+    this.rowSize = Math.floor(this.sourceImage.naturalHeight / this.divisions);
+  }
+
+  buildSections() {
+    for (let r = 0, row = 0; row < this.sourceHeight; row += this.rowSize, r++) {
+      for (let column = 0; column < this.sourceWidth; column += this.columnSize) {
+        console.log(column, row, column + this.columnSize, row + this.rowSize)
+        this.ctx.strokeRect(column, row, column + this.columnSize, row + this.rowSize)
+      }
+    }
   }
 
   getImageData() {
