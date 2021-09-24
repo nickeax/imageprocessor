@@ -1,5 +1,11 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   border: 0;
   box-sizing: border-box;
+}
+
+.srcImage {
+  transform: translateX(-10000px);
 }

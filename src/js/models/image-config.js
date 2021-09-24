@@ -2,10 +2,13 @@ export class ImageConfig {
   canvas
   ctx
   id
+  divisions
+  imagePath
 
-  constructor(c, ctxType, id) {
-    this.canvas = c
-    this.ctx = this.canvas.getContext(ctxType)
+  constructor(imagePath, ctxType, id, divisions) {
+    this.imagePath = imagePath
+    this.ctxType = ctxType
     this.id = id
+    this.divisions = divisions
   }
 }
